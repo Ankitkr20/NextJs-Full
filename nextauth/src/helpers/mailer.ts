@@ -1,7 +1,6 @@
 import User from "@/models/user.models";
 import bcryptjs from "bcryptjs";
 import nodemailer from "nodemailer";
-import { MailtrapClient } from "mailtrap";
 
 export const sendEmail = async ({
   email,
