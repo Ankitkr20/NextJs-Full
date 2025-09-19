@@ -1,2 +1,1 @@
-declare module '@react-email/components';
-declare module 'bcryptjs'
+declare module 'next-auth'
