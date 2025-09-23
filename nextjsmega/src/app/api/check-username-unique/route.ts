@@ -8,6 +8,7 @@ const UsernameQuerySchema = z.object({
 });
 
 export async function GET(request: Request) {
+
   await dbConnect();
 
   try {
@@ -20,14 +21,31 @@ export async function GET(request: Request) {
     console.log(result);
     if (!result.success) {
       const usernameErrors = result.error.format().username?._errors || [];
+      return Response.json(
+        {
+          success: false,
+          message:
+            usernameErrors?.length > 0
+              ? usernameErrors.join(", ")
+              : "Invalid Query Parameters",
+        },
+        { status: 400 }
+      );
+    }
+    const {username} = result.data
+    const existingUser = await UserModel.findOne({username, isVerified: true})
+    if(existingUser){
       return Response.json({
         success: false,
-        message:
-          usernameErrors?.length > 0
-            ? usernameErrors.join(", ")
-            : "Invalid Query Parameters",
-      },{status: 400});
+        message: "Username already Exists"
+      },{status: 400})
     }
+    return Response.json({
+      success: true,
+      message: "Username is not taken"
+
+    },{status: 200})
+
   } catch (error) {
     console.error("Error Checking username", error);
     return Response.json(

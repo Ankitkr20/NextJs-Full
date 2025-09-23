@@ -9,7 +9,11 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "ai": "^5.0.49",
     "bcryptjs": "^3.0.2",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.544.0",
     "mogoose": "^0.0.1-security",
     "next": "15.5.2",
     "next-auth": "^4.24.11",
@@ -17,6 +21,7 @@
     "react-dom": "19.1.0",
     "react-email": "^4.2.11",
     "resend": "^6.0.2",
+    "tailwind-merge": "^3.3.1",
     "zod": "^4.1.5"
   },
   "devDependencies": {
@@ -28,6 +33,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.5.2",
     "tailwindcss": "^4",
+    "tw-animate-css": "^1.3.8",
     "typescript": "^5"
   }
 }

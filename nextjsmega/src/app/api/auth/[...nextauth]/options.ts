@@ -42,7 +42,7 @@ export const authOptions = {
         })
     ],
     callbacks: {
-        async jwt({ token, user }: { token: any; user?: any }) {
+        async jwt({ token, user }: { token: any, user?: any }) {
             if (user) {
                 token._id = user._id?.toString()
                 token.isVerifed = user.isVerifed
