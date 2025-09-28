@@ -22,10 +22,10 @@ export function useAppToast() {
 
     switch (type) {
       case "success":
-        toast.success(message, options);
+        toast.success(message, {...options,style: { background: "#22c55e", color: "white" }});
         break;
       case "error":
-        toast.error(message, options);
+        toast.error(message, {...options,style: { background: "#ef4444", color: "white" }})
         break;
       case "warning":
         toast.warning(message, options);

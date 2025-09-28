@@ -86,9 +86,9 @@ const page = () => {
   return (
     <>
       <div className="flex justify-center items-center min-h-screen bg-gray-100">
-        <div className="w=full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+        <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
           <div className="text-center">
-            <h1 className="tedxt-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
+            <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
               Join Mystery Message
             </h1>
             <p className="mb-4">Sign up to start your anonymous adventure</p>
@@ -111,7 +111,12 @@ const page = () => {
                         }}
                       />
                     </FormControl>
-                    {isCheckingUsername && <Loader2 className="animate-spin"/>}
+                    {isCheckingUsername && <Loader2 className="animate-spin" />}
+                    <p
+                      className={`text-sm ${usernameMessage === "Username is unique" ? "text-green-500" : "text-red-500"}`}
+                    >
+                      {usernameMessage}
+                    </p>
                     <FormDescription>
                       This is your public display name.
                     </FormDescription>
@@ -128,9 +133,6 @@ const page = () => {
                     <FormControl>
                       <Input placeholder="email" {...field} />
                     </FormControl>
-                    <FormDescription>
-                      This is your public display name.
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -148,9 +150,6 @@ const page = () => {
                         {...field}
                       />
                     </FormControl>
-                    <FormDescription>
-                      This is your public display name.
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
