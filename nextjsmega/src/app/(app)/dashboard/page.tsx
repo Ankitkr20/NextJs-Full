@@ -24,7 +24,7 @@ type AppUser = {
   isAcceptingMessages?: boolean;
 };
 
-const page = () => {
+const UserDashboard = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSwitchLoading, setIsSwitchLoading] = useState(false);
@@ -175,4 +175,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default UserDashboard;

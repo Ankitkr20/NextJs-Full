@@ -31,7 +31,6 @@ export default function RootLayout({
         <AuthProvider>
           <Navbar/>
           {children}
-
           <Toaster position="top-right" />
         </AuthProvider>
       </body>
