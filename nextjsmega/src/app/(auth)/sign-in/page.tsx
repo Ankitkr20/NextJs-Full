@@ -7,6 +7,7 @@ import * as z from "zod";
 import { signinSchema } from "@/schema/signInSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
+import Link from "next/link";
 import {
   Form,
   FormItem,
@@ -107,6 +108,7 @@ const Signin = () => {
                 </FormItem>
               )}
             />
+            <div className="grid place-items-center">
             <Button type="submit" disabled={isSubmitting}>
               {isSubmitting ? (
                 <>
@@ -116,6 +118,13 @@ const Signin = () => {
                 "Sign In"
               )}
             </Button>
+            
+            <p className="py-2">Don't have an Accout? {""}
+              <Link
+              href={"/sign-up"} className="text-blue-600 hover:to-blue-800">Signup
+              </Link>
+            </p>
+            </div>
           </form>
         </Form>
       </div>

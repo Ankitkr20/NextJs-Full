@@ -8,8 +8,10 @@ import { useDebounceCallback } from "usehooks-ts";
 import { useAppToast } from "@/hooks/useAppToast";
 import { useRouter } from "next/navigation";
 import { signupSchema } from "@/schema/signUpSchema";
+import { signIn } from "next-auth/react";
 import axios, { AxiosError } from "axios";
 import { ApiResponse } from "@/types/ApiResponse";
+import { FcGoogle } from "react-icons/fc";
 import { Loader2 } from "lucide-react";
 import {
   Form,
@@ -103,7 +105,7 @@ const page = () => {
                     <FormLabel>Username</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="username"
+                        placeholder="Username"
                         {...field}
                         onChange={(e) => {
                           field.onChange(e);
@@ -117,9 +119,6 @@ const page = () => {
                     >
                       {usernameMessage}
                     </p>
-                    <FormDescription>
-                      This is your public display name.
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -131,7 +130,7 @@ const page = () => {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="email" {...field} />
+                      <Input placeholder="Email" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -146,7 +145,7 @@ const page = () => {
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="password"
+                        placeholder="Password"
                         {...field}
                       />
                     </FormControl>
@@ -154,6 +153,7 @@ const page = () => {
                   </FormItem>
                 )}
               />
+              <div className="grid place-items-center">
               <Button type="submit" disabled={isSubmitting}>
                 {isSubmitting ? (
                   <>
@@ -164,11 +164,22 @@ const page = () => {
                   "Signup"
                 )}
               </Button>
+              <br />
+              <button
+                onClick={() => signIn("google", { callbackUrl: "/" })}
+                className="flex items-center gap-3 px-8 py-2 bg-white border rounded-xl shadow hover:bg-gray-100 transition"
+              >
+                <FcGoogle size={18} />
+                <span className="font-light text-sm text-gray-700">
+                  Sign in with Google
+                </span>
+              </button>
+              </div>
             </form>
           </Form>
           <div className="text-center mt-4">
             <p>
-              Already a member?{""}
+              Already a member? {""}
               <Link
                 href="/sign-in"
                 className="text-blue-600 hover:text-blue-800"

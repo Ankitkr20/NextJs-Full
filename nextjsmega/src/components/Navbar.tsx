@@ -24,6 +24,8 @@ const Navbar = () => {
         <Link className="text-xl font-bold mb-4 md:mb-0" href="/">
           Mystery Message
         </Link>
+        <Link className="text-gray-800 font-medium hover:text-gray-300" href="/dashboard">Dashboard
+        </Link>
         {session ? (
           <>
             <span className="mr-4">Welcome, {user?.username || user?.email?.split("@")[0]}</span>
