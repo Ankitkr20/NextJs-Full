@@ -1,8 +1,8 @@
 import CredentialsProvider from "next-auth/providers/credentials"
+import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcryptjs"
 import dbConnect from "@/lib/dbConnect"
 import UserModel from "@/model/User.model"
-
 
 export const authOptions = {
     providers:[
@@ -39,13 +39,32 @@ export const authOptions = {
                     throw new Error(error)
                 }
             }
-        })
+        }),
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID || "",
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+            authorization:{
+                params:{
+                    prompt: "consent",
+                    access_type: "offline",
+                    response_type: "code"
+                }
+            }
+          }),
     ],
     callbacks: {
-        async jwt({ token, user }: { token: any, user?: any }) {
+        async signIn({account, profile}:{account: any, profile: any}){
+            if(account?.provider === "google"){
+                const allowedDomains = ["@gmail.com", "@yahoo.in", "@outlook.com"]
+                return profile.email_verified && allowedDomains.some(domain => profile.email.endsWith(domain))
+            }
+            return true
+        },
+        async jwt({ token, user}: { token: any, user?: any }) {
+            
             if (user) {
                 token._id = user._id?.toString()
-                token.isVerifed = user.isVerifed
+                token.isVerified = user.isVerified
                 token.isAcceptingMessages = user.isAcceptingMessages
                 token.username = user.username
             }
@@ -54,7 +73,7 @@ export const authOptions = {
         async session({ session, token }: { session: any, token: any }) {
             if(token){
                 session.user._id = token._id
-                session.user.isVerified = token.isVerifed
+                session.user.isVerified = token.isVerified
                 session.user.isAcceptingMessages = token.isAcceptingMessages
                 session.user.username = token.username
             }
